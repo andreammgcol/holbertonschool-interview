@@ -4,17 +4,12 @@
 
 def canUnlockAll(boxes):
 
-    countOpenedBoxes = 1
-    numBoxes = len(boxes)
-    canOpen = False
-    tmpKeys = [*range(numBoxes)]
-    tmpKeys = tmpKeys[1:len(tmpKeys)]
+    index = 1
+    canOpen = True
 
-    for key in tmpKeys:
-        for box in boxes:
-            if key in box:
-                countOpenedBoxes += 1
-                break
+    for box in boxes[1:len(boxes)]:
+        index += 1
+        if len(box) > 0 and index not in box:
+            canOpen = False
 
-    canOpen = countOpenedBoxes == numBoxes
     return(canOpen)
