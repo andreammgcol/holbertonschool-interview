@@ -4,12 +4,14 @@
 
 def canUnlockAll(boxes):
 
-    index = 1
-    canOpen = True
+    canOpen = [0]
 
-    for box in boxes[1:len(boxes)]:
-        index += 1
-        if len(box) > 0 and index not in box:
-            canOpen = False
+    for box in canOpen:
+        for key in boxes[box]:
+            if key not in canOpen and key < len(boxes):
+                canOpen.append(key)
 
-    return(canOpen)
+    if len(canOpen) == len(boxes):
+        return (True)
+    else:
+        return (False)
