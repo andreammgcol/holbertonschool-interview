@@ -4,36 +4,32 @@ Minimum Operations
 """
 
 
-def esPar(x):
-    return x % 2 == 0
-
-
 def minOperations(n):
 
-    fileText = 'H'
-    clipboard = ''
+    H = 1
+    clipboard = 0
     numOper = 0
     index = 1
 
     if type(n) is int and n >= 2:
-        while len(fileText) < n:
-            if esPar(n):
+        while H < n:
+            if n % 2 == 0:
                 # logica de mitades
-                if len(fileText) < (n / 2):
-                    clipboard = fileText
-                    fileText += clipboard
+                if H < (n / 2):
+                    clipboard = H
+                    H += clipboard
                     numOper += 2
                 else:
-                    fileText += clipboard
+                    H += clipboard
                     numOper += 1
             else:
                 # logic por multi
                 if n % index == 0:
-                    clipboard = fileText
-                    fileText += clipboard
+                    clipboard = H
+                    H += clipboard
                     numOper += 2
                 else:
-                    fileText += clipboard
+                    H += clipboard
                     numOper += 1
             index += 1
 
