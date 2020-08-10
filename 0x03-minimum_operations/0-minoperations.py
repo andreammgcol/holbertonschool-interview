@@ -15,7 +15,7 @@ def minOperations(n):
     numOper = 0
     index = 1
 
-    if type(n) is int:
+    if type(n) is int and n >= 2:
         while len(fileText) < n:
             if esPar(n):
                 # logica de mitades
