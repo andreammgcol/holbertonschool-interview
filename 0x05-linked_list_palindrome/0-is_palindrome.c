@@ -50,7 +50,7 @@ int is_palindrome(listint_t **head)
 	
 	while (j >= 0)
 	{
-		if (buffer[j] != current->n);
+		if (buffer[j] != current->n)
 			return (0);
 		current = current->next;
 		j = j - 1;
