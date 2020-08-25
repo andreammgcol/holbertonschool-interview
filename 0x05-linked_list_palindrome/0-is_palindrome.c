@@ -13,7 +13,7 @@ int count_palindrome(listint_t *p)
 	
 	while (p)
 	{
-		num++
+		num++;
 		p = p->next;
 	}
 	return (num);
@@ -29,12 +29,12 @@ int is_palindrome(listint_t **head)
 {
 	listint_t *current;
 	int i = 0, j, tam = 0;
-	int buffer[1024]
+	int buffer[1024];
     
 	if (head == NULL)
 		return (1);
 	current = *head;
-	tam = count_palindrome(*head)
+	tam = count_palindrome(*head);
  
     while (i < tam / 2)
     {
@@ -45,12 +45,12 @@ int is_palindrome(listint_t **head)
 	
 	j = i - 1;
 	
-	if (tam % 2 != 0);
+	if (tam % 2 != 0)
 		current = current->next;
 	
 	while (j >= 0)
 	{
-		if (buffer[j] != current->n;
+		if (buffer[j] != current->n);
 			return (0);
 		current = current->next;
 		j = j - 1;
