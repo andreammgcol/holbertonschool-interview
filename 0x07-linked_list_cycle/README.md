@@ -4,7 +4,9 @@ ___
 Specializations - Interview Preparation ― Algorithms
 
 ### Task
-- 0. Linked list cycle
+
+##### 0. Linked list cycle
+
 Write a function in C that checks if a singly linked list has a cycle in it.
 
   - Prototype: int check_cycle(listint_t *list);
