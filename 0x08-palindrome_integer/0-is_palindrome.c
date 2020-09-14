@@ -7,9 +7,9 @@
  */
 int len_n(unsigned long n)
 {
-    int args = 0;
-    
-    while (n > 0)
+	int args = 0;
+
+	while (n > 0)
 	{
 		n = n / 10;
 		args++;
@@ -25,26 +25,26 @@ int len_n(unsigned long n)
  */
 int is_palindrome(unsigned long n)
 {
-    unsigned store[20];
-    int num, i;
+	unsigned store[20];
+	int num, i;
+
+	num = len_n(n);
+
+	for(i = 0; i < num / 2; i++)
+	{
+		store[i] = n % 10;
+		n = n / 10;
+	}
+	i--;
+
+	if(num % 2 == 1) 
+		n = n / 10;
     
-    num = len_n(n);
-    
-    for(i = 0; i < num / 2; i++)
-    {
-       store[i] = n % 10;
-	   n = n / 10;
-    }
-    i--;
-    
-    if(num % 2 == 1) 
-    	n = n / 10;
-    
-    for(; i >= 0; i--)
-    {
-        if (n % 10 != store[i])
-        	return (0);
-        n = n / 10;
-    }
-    return (1);
+	for(; i >= 0; i--)
+	{
+		if (n % 10 != store[i])
+			return (0);
+		n = n / 10;
+	}
+	return (1);
 }
