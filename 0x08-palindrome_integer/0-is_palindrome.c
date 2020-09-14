@@ -1,22 +1,5 @@
 #include "palindrome.h"
 
-/**
- * len_n - check argv
- * @n: unsigned long number
- * Return: numbers entry by argv for n
- */
-int len_n(unsigned long n)
-{
-    int args = 0;
-    
-    while (n > 0)
-	{
-		n = n / 10;
-		args++;
-	}
-
-	return (args);
-}
 
 /**
  * is_palindrome - Entry point
@@ -26,9 +9,13 @@ int len_n(unsigned long n)
 int is_palindrome(unsigned long n)
 {
     unsigned store[200];
-    int num, i = 0;
+    int num = 0; i = 0;
     
-    num = len_n(n);
+    while (n > 0)
+	{
+		n = n / 10;
+		num++;
+	}
     
     while(i < num / 2)
     {
@@ -40,12 +27,11 @@ int is_palindrome(unsigned long n)
     if(num % 2 == 1) 
       n = n / 10;
     
-    while (i >= 0)
+    for (; i >= 0, i--)
     {
         if (n % 10 != store[i])
             return (0);
         n = n / 10;
-        i--;
     }
     return (1);
 }
