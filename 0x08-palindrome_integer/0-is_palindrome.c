@@ -19,7 +19,8 @@ int len_n(unsigned long n)
 }
 
 /**
- * is_palindrome - Entry point
+ * is_palindrome - function that checks whether or not
+ * a given unsigned integer is a palindrome
  * @n: unsigned long number
  * Return: 1 if n is a palindrome, and 0 otherwise
  */
