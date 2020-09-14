@@ -33,7 +33,6 @@ int is_palindrome(unsigned long n)
     for(i = 0; i < num / 2; i++)
     {
        store[i] = n % 10;
-       i++;
     }
     i--;
     
