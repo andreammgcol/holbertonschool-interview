@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Program that solves the N queens problem """
 
-from sys import argv
+import sys
 
 
 class Chessboard:
@@ -72,11 +72,11 @@ def solve(size):
             col = 1 + prev_col
 
 
-if len(argv) != 2:
+if len(sys.argv) != 2:
     print('Usage: nqueens N')
     exit(1)
 try:
-    queens = int(argv[1])
+    queens = int(sys.argv[1])
 except ValueError:
     print('N must be a number')
     exit(1)
