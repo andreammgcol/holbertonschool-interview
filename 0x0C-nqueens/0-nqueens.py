@@ -1,65 +1,87 @@
 #!/usr/bin/python3
 """ Program that solves the N queens problem """
 
-if __name__ == '__main__':
+from sys import argv
 
-    import sys
 
-    if len(sys.argv) != 2:
-        print("Usage: nqueens N")
-        sys.exit(1)
-    try:
-        size = int(sys.argv[1])
-    except BaseException:
-        print("N must be a number")
-        sys.exit(1)
-    if size < 4:
-        print("N must be at least 4")
-        sys.exit(1)
+class Chessboard:
+    """Represents a chessboard"""
 
-    def to_solve():
-        b = [[0 for j in range(size)] for i in range(size)]
-        recursive(b, 0)
-        return
+    def __init__(self, size):
+        self.size = size
+        self.cols = []
 
-    def recursive(b, c):
-        if (c == size):
-            solution(b)
-            return True
-        ret = False
-        for i in range(size):
-            if (position(b, i, c)):
-                b[i][c] = 1
-                ret = recursive(b, c + 1) or ret
-                b[i][c] = 0
-        return ret
+    def place_in_next_row(self, col):
+        self.cols.append(col)
 
-    def position(b, r, c):
-        for i in range(c):
-            if (b[r][i]):
+    def remove_in_current_row(self):
+        return self.cols.pop()
+
+    def next_row_safe(self, col):
+        row = len(self.cols)
+        for q_col in self.cols:
+            if col == q_col:
                 return False
-        i = r
-        j = c
-        while i >= 0 and j >= 0:
-            if(b[i][j]):
+
+        for q_row, q_col in enumerate(self.cols):
+            if q_col - q_row == col - row:
                 return False
-            i = i - 1
-            j = j - 1
-        i = r
-        j = c
-        while j >= 0 and i < size:
-            if(b[i][j]):
+
+        for q_row, q_col in enumerate(self.cols):
+            if self.size - q_col - q_row == self.size - col - row:
                 return False
-            i = i + 1
-            j = j - 1
+
         return True
 
-    def solution(b):
-        solve = []
-        for i in range(size):
-            for j in range(size):
-                if(b[i][j] == 1):
-                    solve.append([i, j])
-        print(solve)
-        solve.clear()
-    to_solve()
+    def display(self):
+        print('[', end='')
+        for row in range(self.size):
+            for col in range(self.size):
+                if col == self.cols[row]:
+                    print('[{}, {}]'.format(row, col), end='')
+                    if row < self.size - 1:
+                        print(', ', end='')
+        print(']')
+
+
+def solve(size):
+    board = Chessboard(size)
+    row = col = 0
+    while True:
+        while col < size:
+            if board.next_row_safe(col):
+                board.place_in_next_row(col)
+                row += 1
+                col = 0
+                break
+            else:
+                col += 1
+
+        if col == size or row == size:
+            if row == size:
+                board.display()
+                board.remove_in_current_row()
+                row -= 1
+
+            try:
+                prev_col = board.remove_in_current_row()
+            except IndexError:
+                break
+
+            row -= 1
+            col = 1 + prev_col
+
+
+if len(argv) != 2:
+    print('Usage: nqueens N')
+    exit(1)
+try:
+    queens = int(argv[1])
+except ValueError:
+    print('N must be a number')
+    exit(1)
+if queens < 4:
+    print('N must be at least 4')
+    exit(1)
+
+solve(queens)
