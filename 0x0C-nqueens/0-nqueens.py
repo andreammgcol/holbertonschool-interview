@@ -4,85 +4,61 @@
 import sys
 
 
-class Chessboard:
-    """Represents a chessboard"""
+def display(chessboard):
+    """ print chessboard"""
+    solve = []
+    for row in range(len(chessboard)):
+        for col in range (len(chessboard)):
+            if chessboard[row][col]:
+                solve.append([row,col])
+    print(solve)
 
-    def __init__(self, size):
-        self.size = size
-        self.cols = []
+def check(chessboard, row, col, n):
+    """check if a queen can be placed on chessboard"""
+    for i in range(col):
+        if chessboard[row][i] == 1:
+            return False
 
-    def place_in_next_row(self, col):
-        self.cols.append(col)
+    for j, i in zip(range(row, -1, -1), range(col, -1, -1)):
+        if chessboard[j][i] == 1:
+            return False
+    
+    for j, i in zip(range(row, n, 1), range(col, -1, -1)):
+        if chessboard[j][i] == 1:
+            return False
 
-    def remove_in_current_row(self):
-        return self.cols.pop()
+    return True
 
-    def next_row_safe(self, col):
-        row = len(self.cols)
-        for q_col in self.cols:
-            if col == q_col:
-                return False
 
-        for q_row, q_col in enumerate(self.cols):
-            if q_col - q_row == col - row:
-                return False
-
-        for q_row, q_col in enumerate(self.cols):
-            if self.size - q_col - q_row == self.size - col - row:
-                return False
-
+def solve(chessboard, col, n):
+    if col == n:
+        display(chessboard)
         return True
 
-    def display(self):
-        print('[', end='')
-        for row in range(self.size):
-            for col in range(self.size):
-                if col == self.cols[row]:
-                    print('[{}, {}]'.format(row, col), end='')
-                    if row < self.size - 1:
-                        print(', ', end='')
-        print(']')
-
-
-def solve(size):
-    board = Chessboard(size)
-    row = col = 0
-    while True:
-        while col < size:
-            if board.next_row_safe(col):
-                board.place_in_next_row(col)
-                row += 1
-                col = 0
-                break
-            else:
-                col += 1
-
-        if col == size or row == size:
-            if row == size:
-                board.display()
-                board.remove_in_current_row()
-                row -= 1
-
-            try:
-                prev_col = board.remove_in_current_row()
-            except IndexError:
-                break
-
-            row -= 1
-            col = 1 + prev_col
+    i = False
+    for k in range(n):
+        if check(chessboard, k, col, n):
+            chessboard[k][col] = 1
+            i = solve(chessboard, col + 1, n) or i
+            chessboard[k][col] = 0
+    return i
 
 if __name__ == "__main__":
 
     if len(sys.argv) != 2:
         print('Usage: nqueens N')
         exit(1)
+
     try:
-        queens = int(sys.argv[1])
+        n = int(sys.argv[1])
+
     except ValueError:
         print('N must be a number')
         exit(1)
-    if queens < 4:
+
+    if n < 4:
         print('N must be at least 4')
         exit(1)
 
-    solve(queens)
+    chessboard = [[0 for i in range(n)] for j in range(n)]
+    solve(chessboard, 0, n)
