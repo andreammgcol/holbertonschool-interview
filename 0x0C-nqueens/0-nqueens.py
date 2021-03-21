@@ -71,17 +71,18 @@ def solve(size):
             row -= 1
             col = 1 + prev_col
 
+if __name__ == "__main__":
 
-if len(sys.argv) != 2:
-    print('Usage: nqueens N')
-    exit(1)
-try:
-    queens = int(sys.argv[1])
-except ValueError:
-    print('N must be a number')
-    exit(1)
-if queens < 4:
-    print('N must be at least 4')
-    exit(1)
+    if len(sys.argv) != 2:
+        print('Usage: nqueens N')
+        exit(1)
+    try:
+        queens = int(sys.argv[1])
+    except ValueError:
+        print('N must be a number')
+        exit(1)
+    if queens < 4:
+        print('N must be at least 4')
+        exit(1)
 
-solve(queens)
+    solve(queens)
