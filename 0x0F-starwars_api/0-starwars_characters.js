@@ -3,7 +3,7 @@
 const request = require('request');
 const url = 'https://swapi-api.hbtn.io/api/films/' + process.argv[2];
 
-let firstName = function () {
+const firstName = function () {
   request(url, function (error, response, body) {
     if (error) throw error;
     let i = 0;
@@ -11,7 +11,7 @@ let firstName = function () {
   });
 };
 
-let secondName = function (characters, i) {
+const secondName = function (characters, i) {
   if (characters.length === i) {
     return;
   }
